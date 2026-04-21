@@ -305,123 +305,157 @@
             100% { transform: translate(-50%, -10px); }
         }
 
-        /* PRINT STYLES - Ensures the PDF export looks like a clean CV */
+        /* PRINT STYLES - High-End Minimalist CV/Document Style */
         @media print {
-            header, .lang-toggle, .btn-group, .hero-location, .floating-toolbar, canvas, footer, .cta-buttons, .project-links {
-                display: none !important;
+            @page {
+                size: A4;
+                margin: 1.5cm;
             }
+            
             body {
                 background: white !important;
-                color: #1d1d1f !important;
-                font-size: 10pt !important;
+                color: #000 !important;
                 font-family: "BrandFont", "Inter", sans-serif !important;
+                font-size: 10pt;
+                line-height: 1.3;
+                -webkit-print-color-adjust: exact;
             }
+
+            /* Hide Web UI */
+            header, footer, .btn, .btn-group, .floating-toolbar, canvas, .lang-toggle, .hero-location, .project-links, .project-tags, .cta-buttons, .systems-grid .system-link, .caption {
+                display: none !important;
+            }
+
             .container {
                 max-width: 100% !important;
-                padding: 0 40px !important;
+                width: 100% !important;
                 margin: 0 !important;
+                padding: 0 !important;
             }
+
             section {
-                padding: 15px 0 !important;
+                padding: 8pt 0 !important;
+                margin: 0 !important;
                 opacity: 1 !important;
                 transform: none !important;
                 page-break-inside: avoid;
+                border: none !important;
             }
-            .hero {
-                min-height: auto !important;
-                padding: 20px 0 !important;
-                text-align: left !important;
-                align-items: flex-start !important;
-                display: block !important;
-                border-bottom: 3px solid var(--accent-color);
-                margin-bottom: 20px;
-            }
-            .hero h1 {
-                -webkit-text-fill-color: var(--accent-color) !important;
-                color: var(--accent-color) !important;
-                font-size: 28pt !important;
-                margin-bottom: 5pt !important;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-            .hero h2 {
-                font-size: 14pt !important;
-                color: #444 !important;
-            }
-            .hero p {
-                max-width: 100% !important;
-                margin: 10px 0 0 0 !important;
-                font-size: 11pt !important;
-                color: #666 !important;
-            }
-            .projects-list, .experience-list, .systems-grid, .info-grid, .skills-section-inner {
-                display: grid !important;
-                grid-template-columns: 1fr 1fr !important;
-                gap: 15pt !important;
-            }
-            .project-item, .system-card, .info-card, .timeline-item {
-                border: 1px solid #eef2f7 !important;
-                background: #f9fbff !important;
-                margin-bottom: 10pt !important;
-                padding: 12pt !important;
-                border-left: 4px solid var(--accent-color) !important;
-            }
-            .section-title {
-                font-size: 16pt !important;
-                margin-bottom: 8pt !important;
-                text-align: left !important;
-                color: var(--accent-color) !important;
-                border-bottom: 1px solid #d0e7ff;
-                padding-bottom: 4px;
-            }
+
             .section-header {
                 text-align: left !important;
-                margin-bottom: 20px !important;
+                margin-bottom: 5pt !important;
             }
-            .section-header p {
+
+            .section-title {
+                font-size: 13pt;
+                font-weight: 700;
+                margin-top: 12pt;
+                margin-bottom: 5pt;
+                color: #000 !important;
+                border-bottom: 0.5pt solid #333;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
                 text-align: left !important;
-                margin: 0 !important;
             }
-            .timeline {
+
+            h1 {
+                font-size: 22pt !important;
+                margin-bottom: 3pt !important;
+                font-weight: 700;
+                letter-spacing: -0.01em;
+                color: #000 !important;
+                text-align: left !important;
+            }
+
+            h2 {
+                font-size: 11pt !important;
+                margin-bottom: 4pt !important;
+                font-weight: 500;
+                color: #333 !important;
+                text-align: left !important;
+            }
+
+            p {
+                font-size: 10pt;
+                margin-bottom: 4pt;
+                color: #333 !important;
+                text-align: left !important;
+            }
+
+            /* Hero Section as Header */
+            .hero {
+                min-height: auto !important;
+                padding: 0 0 10pt 0 !important;
+                display: block !important;
+                border-bottom: 2pt solid #000;
+                margin-bottom: 15pt;
+                text-align: left !important;
+            }
+
+            .hero-content {
                 max-width: 100% !important;
+                padding: 0 !important;
+                text-align: left !important;
             }
-            .timeline-item {
-                padding-left: 15pt !important;
-                margin-bottom: 10pt !important;
+
+            .hero h1 { background: none !important; -webkit-text-fill-color: initial !important; }
+
+            /* Lists Layout */
+            .projects-list, .experience-list, .info-grid, .skills-section-inner, .timeline, .systems-grid {
+                display: block !important;
+                width: 100% !important;
             }
-            .timeline-dot {
-                background: var(--accent-color) !important;
+
+            .project-item, .info-card, .timeline-item, .system-card {
+                border: none !important;
+                padding: 0 !important;
+                margin-bottom: 8pt !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: none !important;
             }
+
+            .project-item h3, .info-card h3, .timeline-item h3, .system-card h3 {
+                font-size: 11pt !important;
+                font-weight: 700 !important;
+                margin-bottom: 2pt !important;
+            }
+
+            /* Skill Tags as text list */
             .skill-tags {
-                display: flex !important;
-                flex-wrap: wrap !important;
+                display: inline !important;
             }
             .skill-tag {
-                background: #f0f7ff !important;
-                border: 1px solid #cfe5ff !important;
-                color: #0056b3 !important;
-                display: inline-block !important;
-                margin: 2pt !important;
-                font-size: 8pt !important;
-                padding: 2pt 6pt !important;
+                background: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 10pt !important;
+                color: #000 !important;
+                display: inline !important;
             }
-            .experience-box {
-                border: 2px solid var(--accent-color) !important;
-                padding: 10pt !important;
-                background: #f0f7ff !important;
-                font-weight: 600 !important;
-                margin-top: 10pt !important;
-                border-radius: 8px !important;
+            .skill-tag::after { content: ", "; }
+            .skill-tag:last-child::after { content: "."; }
+            
+            .skill-group { margin-bottom: 8pt; }
+            .skill-group h3 { display: inline; font-size: 10pt !important; }
+            .skill-group h3::after { content: ": "; }
+
+            /* Hidden decorative elements */
+            .about-card, .education-card, .experience-box {
+                background: none !important;
+                padding: 0 !important;
+                border: none !important;
             }
-            .power-record-corner {
-                position: fixed !important;
-                bottom: 20px !important;
-                right: 20px !important;
-                font-size: 8pt !important;
-                color: #999 !important;
-                border: 1px solid #ddd !important;
-                padding: 5px 10px !important;
-                background: white !important;
+            
+            .timeline::before, .timeline-item::after {
+                display: none !important;
+            }
+            
+            .cta-section {
+                padding: 20pt 0 !important;
+                background: none !important;
+                text-align: left !important;
             }
         }
 
@@ -1102,7 +1136,7 @@
                 <p data-i18n="proj_6_desc">Sistema de publicación automatizada con Python/Git. Sincronización dinámica de la web y descarga local del CV actualizado.</p>
             </div>
 
-            <div class="project-item power-record-corner">
+            <div class="project-item">
                 <h3 data-i18n="proj_power_title">Record Nacional Powerlifting (WRPF)</h3>
                 <p data-i18n="proj_power_desc">Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación enfocada al alto rendimiento.</p>
                 <div class="project-links" style="margin-top: 10px;">
@@ -1127,7 +1161,6 @@
     <section id="experience" class="container">
         <div class="section-header">
             <h2 class="section-title" data-i18n="exp_title">Trayectoria Profesional</h2>
-            <p class="section-subtitle" data-i18n="exp_total">Trayectoria: 10 meses de experiencia real Junior con proyectos de automatización e IA.</p>
         </div>
 
         <div class="timeline">
@@ -1309,16 +1342,26 @@
             proj_canal_desc: "Desarrollo de un ecosistema de posteo automático multicanal (LinkedIn, Twitter, Web). La pieza clave fue un algoritmo evolutivo de selección natural programado en Make.com que optimiza la generación de contenido.",
             proj_arqus_title: "Arqus International Thinkaton (Berlin/Leipzig)",
             proj_arqus_desc: "Seleccionado por excelencia de emprendimiento y logros para ideación de alto rendimiento en Berlin y Leipzig. Becado por la red Arqus. Reto: Europe as a Global Actor.",
-            proj_recapacicla_title: "Ideatón Recapacicla (3er Premio)",
-            proj_recapacicla_desc: "Desarrollo del proyecto RECUP TO GO premiado en la fase de universidades de Andalucía Oriental.",
-            proj_talento_title: "Talento Emprendedor UGR (150h)",
-            proj_talento_desc: "Formación intensiva de 150h reconocida con 6 créditos ECTS. Validación de ideas de negocio y metodologías Lean Startup.",
+            proj_google_title: "IA en la Empresa (Google Gemini)",
+            proj_google_desc: "Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo.",
+            proj_ia_congreso_title: "IA Granada Foundation",
+            proj_ia_congreso_desc: "Participación activa en AI Business Lab, Coloquia.lab y el III Congreso IA de Andalucía.",
+            proj_talentland_title: "Talent Land (2024-2026)",
+            proj_talentland_desc: "Asistente 2024, becado 2025. En conversaciones para participación activa en 2026.",
             proj_3_title: "Proyecto SEO / Web Impresoras",
             proj_3_desc: "Web optimizada que alcanzó ~8.700 visitas mensuales de tráfico orgánico. Experiencia práctica en posicionamiento y conversión real.",
             proj_4_title: "Alhambra Insight IA",
-            proj_4_desc: "Participación en el IX concurso de ideas. Solución de IA por visión y software especializado bajo mentoría académica. Potenciando la eficiencia mediante análisis visual avanzado.",
+            proj_4_desc: "Participación en the IX ideas contest. Solución de IA por visión y software especializado bajo mentoría académica.",
             proj_6_title: "Dynamic Portfolio & Auto CV",
             proj_6_desc: "Sincronización automatizada del portfolio web y CV descargable mediante scripts en Python y Git/GitHub.",
+            proj_power_title: "Record Nacional Powerlifting (WRPF)",
+            proj_power_desc: "Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación enfocada al alto rendimiento.",
+            proj_sm_title: "Social Media Impact (>60k likes)",
+            proj_sm_desc: "Marca personal y comunidad digital. Dominio de algoritmos de distribución y creación de contenido viral de alto impacto.",
+            proj_fundacion_title: "IA Granada Foundation Hub",
+            proj_fundacion_desc: "Socio activo en AI Business Lab y Coloquia.lab.",
+            proj_nestle_title: "Nestlé International Skillathon 2025",
+            proj_nestle_desc: "Colaboración con equipos internacionales para resolver retos de negocio reales de alta complejidad. Foco en innovación y trabajo bajo presión.",
 
             exp_title: "Trayectoria Profesional",
             exp_total: "Con 10 meses de experiencia real en proyectos colaborando con agencias de Madrid, Valencia y Granada.",
@@ -1336,22 +1379,6 @@
             btn_make: "Flujo Make.com",
             btn_record: "Ver Record",
             btn_invite: "Invitación",
-
-            proj_power_title: "Record Nacional Powerlifting (WRPF)",
-            proj_power_desc: "Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación enfocada al alto rendimiento.",
-            proj_google_title: "IA en la Empresa (Google Gemini)",
-            proj_google_desc: "Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo.",
-            proj_ia_congreso_title: "IA Granada Foundation",
-            proj_ia_congreso_desc: "Participación activa en AI Business Lab, Coloquia.lab y el III Congreso IA de Andalucía.",
-            proj_talentland_title: "Talent Land (2024-2026)",
-            proj_talentland_desc: "Asistente 2024, becado 2025. En conversaciones para participación activa en 2026.",
-            proj_sm_title: "Social Media Impact (>60k likes)",
-            proj_sm_desc: "Marca personal y comunidad digital. Dominio de algoritmos de distribución y creación de contenido viral de alto impacto.",
-            proj_fundacion_title: "IA Granada Foundation",
-            proj_fundacion_desc: "AI Business Lab, Coloquia.lab y III Congreso IA Andalucía.",
-
-            proj_nestle_title: "Nestlé International Skillathon 2025",
-            proj_nestle_desc: "Colaboración con equipos internacionales para resolver retos de negocio reales de alta complejidad. Foco en innovación y trabajo bajo presión.",
 
             events_title: "Impacto & Ecosistema Profesional",
             edu_title: "Formación & Excelencia",
@@ -1430,14 +1457,21 @@
             proj_ia_congreso_desc: "Active participation in AI Business Lab, Coloquia.lab, and III Andalusia AI Congress.",
             proj_talentland_title: "Talent Land (2024-2026)",
             proj_talentland_desc: "Attended 2024, Scholarship 2025. In talks for active participation in 2026.",
-
             proj_3_title: "SEO Project / Printers Web",
             proj_3_desc: "Optimized website reaching ~8,700 monthly organic visits. Practical experience in SEO and real traffic conversion.",
             proj_4_title: "Alhambra Insight AI",
             proj_4_desc: "Participation in the IX ideas contest. Vision AI and software project under academic mentorship. Enhancing efficiency through visual analysis.",
             proj_6_title: "Dynamic Portfolio & Auto CV",
             proj_6_desc: "Automated syncing of the portfolio web and downloadable CV via Python and Git/GitHub scripts.",
-
+            proj_power_title: "National Powerlifting Record (WRPF)",
+            proj_power_desc: "Bench Press record in Teenagers category (117.5 kg). Discipline, consistency, and perseverance applied to high performance.",
+            proj_sm_title: "Social Media Impact (>60k likes)",
+            proj_sm_desc: "Personal brand building and digital community growth. Mastery of distribution algorithms and high-impact viral content creation.",
+            proj_fundacion_title: "IA Granada Foundation Hub",
+            proj_fundacion_desc: "Active collaboration with AI Business Lab and Coloquia.lab ecosystems.",
+            proj_nestle_title: "Nestlé International Skillathon 2025",
+            proj_nestle_desc: "Collaboration with international teams to solve high-complexity real business challenges. Focused on innovation and working under pressure.",
+            
             exp_title: "Professional Path",
             exp_total: "With 10 months of real experience in projects collaborating with agencies in Madrid, Valencia, and Granada.",
             exp_1_title: "BIP Portugal: Scaling Businesses",
@@ -1454,24 +1488,7 @@
             btn_make: "Make.com Setup",
             btn_record: "View Record",
             btn_invite: "Invitation",
-
-            proj_power_title: "National Powerlifting Record (WRPF)",
-            proj_power_desc: "Bench Press record in Teenagers category (117.5 kg). Discipline, consistency, and perseverance applied to high performance.",
-            proj_google_title: "AI in Business (Google Gemini)",
-            proj_google_desc: "Official certification issued by 'The Power' in collaboration with Google Campus Madrid. AI applied to the workplace.",
-            proj_ia_congreso_title: "III Andalusia AI Congress",
-            proj_ia_congreso_desc: "Active participation in the leading AI congress in Southern Spain. Networking with industry leaders and trend analysis.",
-            proj_talentland_title: "Talent Land Spain 2025",
-            proj_talentland_desc: "Scholarship recipient for the world's largest talent and technology meeting. Participation in innovation challenges and advanced workshops.",
-            proj_sm_title: "Social Media Impact (>60k likes)",
-            proj_sm_desc: "Personal brand building and digital community growth. Mastery of distribution algorithms and high-impact viral content creation.",
-            proj_fundacion_title: "IA Granada Foundation",
-            proj_fundacion_desc: "AI Business Lab, Coloquia.lab, and III Andalusia AI Congress.",
-
-            proj_nestle_title: "Nestlé International Skillathon 2025",
-            proj_nestle_desc: "Collaboration with international teams to solve high-complexity real business challenges. Focused on innovation and working under pressure.",
-
-            events_title: "Professional Impact & Ecosystem",
+            
             edu_title: "Education & Excellence",
             edu_uni: "University of Granada (UGR)",
             edu_period: "2025 – Present:",
