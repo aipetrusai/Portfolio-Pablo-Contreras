@@ -15,14 +15,13 @@
         /* FONT REQUIREMENTS */
         @font-face {
             font-family: "BrandFont";
-            src: url("/fonts/brand-font.woff2") format("woff2");
+            src: url("./fonts/brand-font.woff2") format("woff2");
             font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
 
         :root {
-            /* Font stack with BrandFont first, then Inter/System */
             font-family: "BrandFont", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             
             /* Colors */
@@ -304,6 +303,126 @@
         @keyframes floatUp {
             0% { transform: translate(-50%, 0); }
             100% { transform: translate(-50%, -10px); }
+        }
+
+        /* PRINT STYLES - Ensures the PDF export looks like a clean CV */
+        @media print {
+            header, .lang-toggle, .btn-group, .hero-location, .floating-toolbar, canvas, footer, .cta-buttons, .project-links {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: #1d1d1f !important;
+                font-size: 10pt !important;
+                font-family: "BrandFont", "Inter", sans-serif !important;
+            }
+            .container {
+                max-width: 100% !important;
+                padding: 0 40px !important;
+                margin: 0 !important;
+            }
+            section {
+                padding: 15px 0 !important;
+                opacity: 1 !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            .hero {
+                min-height: auto !important;
+                padding: 20px 0 !important;
+                text-align: left !important;
+                align-items: flex-start !important;
+                display: block !important;
+                border-bottom: 3px solid var(--accent-color);
+                margin-bottom: 20px;
+            }
+            .hero h1 {
+                -webkit-text-fill-color: var(--accent-color) !important;
+                color: var(--accent-color) !important;
+                font-size: 28pt !important;
+                margin-bottom: 5pt !important;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .hero h2 {
+                font-size: 14pt !important;
+                color: #444 !important;
+            }
+            .hero p {
+                max-width: 100% !important;
+                margin: 10px 0 0 0 !important;
+                font-size: 11pt !important;
+                color: #666 !important;
+            }
+            .projects-list, .experience-list, .systems-grid, .info-grid, .skills-section-inner {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr !important;
+                gap: 15pt !important;
+            }
+            .project-item, .system-card, .info-card, .timeline-item {
+                border: 1px solid #eef2f7 !important;
+                background: #f9fbff !important;
+                margin-bottom: 10pt !important;
+                padding: 12pt !important;
+                border-left: 4px solid var(--accent-color) !important;
+            }
+            .section-title {
+                font-size: 16pt !important;
+                margin-bottom: 8pt !important;
+                text-align: left !important;
+                color: var(--accent-color) !important;
+                border-bottom: 1px solid #d0e7ff;
+                padding-bottom: 4px;
+            }
+            .section-header {
+                text-align: left !important;
+                margin-bottom: 20px !important;
+            }
+            .section-header p {
+                text-align: left !important;
+                margin: 0 !important;
+            }
+            .timeline {
+                max-width: 100% !important;
+            }
+            .timeline-item {
+                padding-left: 15pt !important;
+                margin-bottom: 10pt !important;
+            }
+            .timeline-dot {
+                background: var(--accent-color) !important;
+            }
+            .skill-tags {
+                display: flex !important;
+                flex-wrap: wrap !important;
+            }
+            .skill-tag {
+                background: #f0f7ff !important;
+                border: 1px solid #cfe5ff !important;
+                color: #0056b3 !important;
+                display: inline-block !important;
+                margin: 2pt !important;
+                font-size: 8pt !important;
+                padding: 2pt 6pt !important;
+            }
+            .experience-box {
+                border: 2px solid var(--accent-color) !important;
+                padding: 10pt !important;
+                background: #f0f7ff !important;
+                font-weight: 600 !important;
+                margin-top: 10pt !important;
+                border-radius: 8px !important;
+            }
+            .power-record-corner {
+                position: fixed !important;
+                bottom: 20px !important;
+                right: 20px !important;
+                font-size: 8pt !important;
+                color: #999 !important;
+                border: 1px solid #ddd !important;
+                padding: 5px 10px !important;
+                background: white !important;
+            }
         }
 
         .toolbar-icon {
@@ -783,7 +902,7 @@
             <p data-i18n="hero_desc">Estudiante de Ingeniería Informática + ADE (UGR) y emprendedor de IA, creando soluciones reales para negocios.</p>
             <div class="btn-group">
                 <a href="#projects" class="btn btn-primary" data-i18n="hero_btn_projects">Ver proyectos</a>
-                <a href="cv/Pablo_Contreras_CV.pdf" target="_blank" class="btn btn-secondary" data-i18n="hero_btn_cv">Descargar CV</a>
+                <a href="javascript:void(0)" onclick="window.print()" class="btn btn-secondary" data-i18n="hero_btn_cv">Descargar CV</a>
             </div>
             <div class="hero-location" data-i18n="hero_location">Granada, España</div>
         </div>
@@ -805,9 +924,11 @@
             <div class="about-text">
                 <p data-i18n="about_p1">Estudiante de Ingeniería Informática + ADE en la Universidad de Granada, builder enfocado en IA aplicada, automatización y marketing tech.</p>
                 <br>
-                <p data-i18n="about_p2">Sólida capacidad para construir infraestructuras de IA escalables, habiendo superado las 100k operaciones automatizadas entre 2025 y 2026. Con 10 meses de experiencia real en proyectos colaborando con agencias de Madrid, Valencia y Granada.</p>
+                <p data-i18n="about_p2">Sólida capacidad para construir infraestructuras de IA escalables, habiendo superado las 100k operaciones automatizadas entre 2025 y 2026.</p>
             </div>
         </div>
+    </section>
+
     <!-- Projects Section (Featured Projects & Achievements) -->
     <section id="projects" class="container">
         <div class="section-header">
@@ -816,7 +937,8 @@
         </div>
 
         <div class="projects-list">
-            
+
+            <!-- Andaluz.ia (First) -->
             <div class="project-item">
                 <h3 data-i18n="proj_1_title">Andaluz.ia (GranadaTur 2035)</h3>
                 <p data-i18n="proj_1_desc">Partner técnico co-fundador enfocado en infraestructura de IA. Automatización con Antigravity, Python y librerías escalables. Presentado a incubadora El Carmen, Breaker Impulsa, Concurso Universitario 2026 (€26k) y Santander X Explorer.</p>
@@ -866,47 +988,40 @@
             </div>
 
             <div class="project-item">
-                <h3 data-i18n="proj_power_title">Record Nacional Powerlifting (WRPF)</h3>
-                <p data-i18n="proj_power_desc">Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación aplicadas al alto rendimiento físico y mental.</p>
+                <h3 data-i18n="proj_oposline_title">Predictivo de datos para trends (Market Insights)</h3>
+                <p data-i18n="proj_oposline_desc">Desarrollo de modelo predictivo con NumPy y Pandas. Fruto de detectar un hueco en el mercado, desarrollado para intentar venderlo como freelance para análisis de tendencias.</p>
                 <div class="project-tags">
-                    <span class="project-tag">High Performance</span>
-                    <span class="project-tag">Discipline</span>
+                    <span class="project-tag">Scikit-learn</span>
+                    <span class="project-tag">NumPy</span>
+                    <span class="project-tag">AI Business Lab</span>
                 </div>
                 <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://drive.google.com/file/d/1f-JgAKks_00GKn1DcWtj0xrcUwhlAL4m/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_record">Ver Record</a>
+                    <a href="https://github.com/aipetrusai/forecast-with-numpy-and-pandas" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;">GitHub Repo</a>
                 </div>
             </div>
 
             <div class="project-item">
-                <h3 data-i18n="proj_sm_title">Social Media Impact (>60k likes)</h3>
-                <p data-i18n="proj_sm_desc">Construcción de marca personal y comunidad digital. Dominio de algoritmos de distribución y creación de contenido viral de alto impacto.</p>
-                <div class="project-tags">
-                    <span class="project-tag">Growth</span>
-                    <span class="project-tag">Content Strategy</span>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <h3 data-i18n="proj_arqus_title">Arqus International Thinkaton</h3>
-                <p data-i18n="proj_arqus_desc">Seleccionado por excelencia para ideación de alto rendimiento en Berlin y Leipzig. Reto: "Europe as a Global Actor".</p>
+                <h3 data-i18n="proj_arqus_title">Arqus International Thinkaton (Berlin/Leipzig)</h3>
+                <p data-i18n="proj_arqus_desc">Seleccionado y becado por excelencia de emprendimiento y logros para acudir en persona a Berlin/Leipzig para ideación de alto rendimiento en retos globales de la UE.</p>
                 <div class="project-tags">
                     <span class="project-tag">Entrepreneurship</span>
-                    <span class="project-tag">Global Policy</span>
+                    <span class="project-tag">Berlin/Leipzig</span>
                 </div>
                 <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                     <a href="https://drive.google.com/file/d/1YQOvwR8Te6VFZTdJ1ta95LKd95wISv42/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_invite">Invitación</a>
+                    <a href="https://arqus-alliance.eu/event/thinkathon-and-workshop-europe-as-a-global-actor-which-competences-do-we-need-in-a-world-in-crisis/" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_info">+ Info Evento</a>
                 </div>
             </div>
 
             <div class="project-item">
-                <h3 data-i18n="proj_google_title">IA en la Empresa (Google Gemini)</h3>
-                <p data-i18n="proj_google_desc">Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo y operativa eficiente.</p>
+                <h3 data-i18n="proj_nestle_title">Nestlé International Skillathon 2025</h3>
+                <p data-i18n="proj_nestle_desc">Colaboración con equipos internacionales para resolver retos de negocio reales de alta complejidad. Foco en innovación y trabajo bajo presión.</p>
                 <div class="project-tags">
-                    <span class="project-tag">Google Gemini</span>
-                    <span class="project-tag">Workplace AI</span>
+                    <span class="project-tag">International</span>
+                    <span class="project-tag">Problem Solving</span>
                 </div>
                 <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://drive.google.com/file/d/1d-HY5UvKHJMJnJwCC1L2LEqi8YsoZIER/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
+                    <a href="https://drive.google.com/file/d/1P7elVajMrdudrw50Z806nKr7UC8-AgYZ/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
                 </div>
             </div>
 
@@ -936,11 +1051,23 @@
             </div>
 
             <div class="project-item">
-                <h3 data-i18n="proj_ia_congreso_title">III Congreso IA de Andalucía</h3>
-                <p data-i18n="proj_ia_congreso_desc">Participación activa en el congreso de referencia. Networking con líderes del sector y análisis de tendencias en Granada.</p>
+                <h3 data-i18n="proj_google_title">IA en la Empresa (Google Gemini)</h3>
+                <p data-i18n="proj_google_desc">Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo y operativa eficiente.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Google Gemini</span>
+                    <span class="project-tag">Workplace AI</span>
+                </div>
+                <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="https://drive.google.com/file/d/1d-HY5UvKHJMJnJwCC1L2LEqi8YsoZIER/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <h3 data-i18n="proj_ia_congreso_title">IA Granada Foundation</h3>
+                <p data-i18n="proj_ia_congreso_desc">Participación activa en AI Business Lab, Coloquia.lab y el III Congreso IA de Andalucía. Foco en el ecosistema emprendedor de Granada.</p>
                 <div class="project-tags">
                     <span class="project-tag">AI Ecosystem</span>
-                    <span class="project-tag">Networking</span>
+                    <span class="project-tag">Fundación IA Granada</span>
                 </div>
                 <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
                     <a href="https://drive.google.com/file/d/1UXZc1rQbhswZCKivvuqG0daa6mAwen4i/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
@@ -948,26 +1075,15 @@
             </div>
 
             <div class="project-item">
-                <h3 data-i18n="proj_nestle_title">Nestlé International Skillathon 2025</h3>
-                <p data-i18n="proj_nestle_desc">Colaboración con equipos internacionales para resolver retos de negocio reales de alta complejidad. Foco en innovación y trabajo bajo presión.</p>
-                <div class="project-tags">
-                    <span class="project-tag">International</span>
-                    <span class="project-tag">Problem Solving</span>
-                </div>
-                <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://drive.google.com/file/d/1P7elVajMrdudrw50Z806nKr7UC8-AgYZ/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <h3 data-i18n="proj_talentland_title">Talent Land España 2025</h3>
-                <p data-i18n="proj_talentland_desc">Becado para el mayor encuentro de talento y tecnología del mundo. Participación en retos de innovación y workshops avanzados.</p>
+                <h3 data-i18n="proj_talentland_title">Talent Land (2024-2026)</h3>
+                <p data-i18n="proj_talentland_desc">Asistente 2024, becado 2025. En conversaciones para participación activa en 2026. Conexión global con el mayor ecosistema de talento y tecnología.</p>
                 <div class="project-tags">
                     <span class="project-tag">Innovation</span>
                     <span class="project-tag">Scholarship</span>
                 </div>
                 <div class="project-links" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="https://drive.google.com/file/d/1lXcBcC_yKLe-V4it5StmN9K9DKpMeX5O/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado</a>
+                    <a href="https://drive.google.com/file/d/1lXcBcC_yKLe-V4it5StmN9K9DKpMeX5O/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado 2024</a>
+                    <a href="https://drive.google.com/file/d/1f6S9t4a8yTjicOYVNiWe1S7Y2im21b9O/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 6px 16px; font-size: 0.8rem;" data-i18n="btn_cert">Certificado 2025</a>
                 </div>
             </div>
 
@@ -984,6 +1100,24 @@
             <div class="project-item">
                 <h3 data-i18n="proj_6_title">Dynamic Portfolio & Auto CV</h3>
                 <p data-i18n="proj_6_desc">Sistema de publicación automatizada con Python/Git. Sincronización dinámica de la web y descarga local del CV actualizado.</p>
+            </div>
+
+            <div class="project-item power-record-corner">
+                <h3 data-i18n="proj_power_title">Record Nacional Powerlifting (WRPF)</h3>
+                <p data-i18n="proj_power_desc">Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación enfocada al alto rendimiento.</p>
+                <div class="project-links" style="margin-top: 10px;">
+                    <a href="https://drive.google.com/file/d/1f-JgAKks_00GKn1DcWtj0xrcUwhlAL4m/view?usp=drive_link" target="_blank" class="btn btn-secondary sm" style="padding: 4px 12px; font-size: 0.75rem;" data-i18n="btn_record">Ver Record</a>
+                </div>
+            </div>
+
+            <!-- Social Media Impact (Last) -->
+            <div class="project-item">
+                <h3 data-i18n="proj_sm_title">Social Media Impact (>60k likes)</h3>
+                <p data-i18n="proj_sm_desc">Construcción de marca personal y comunidad digital. Dominio de algoritmos de distribución y creación de contenido viral de alto impacto.</p>
+                <div class="project-tags">
+                    <span class="project-tag">Growth</span>
+                    <span class="project-tag">Content Strategy</span>
+                </div>
             </div>
 
         </div>
@@ -1004,6 +1138,12 @@
             </div>
 
             <div class="timeline-item">
+                <div class="timeline-year">2025</div>
+                <h3 data-i18n="exp_seo_title">SEO & Marketing Strategy (2023-2024)</h3>
+                <p data-i18n="exp_seo_desc">Posicionamiento web orgánico y marketing enfocado a productos de ticket medio (100€ - 300€). Validación de embudos de conversión.</p>
+            </div>
+
+            <div class="timeline-item">
                 <div class="timeline-year">2024</div>
                 <h3 data-i18n="exp_2_title">CanalOnline SL - Emprendedor / Junior</h3>
                 <p data-i18n="exp_2_desc">Ejecución técnica en automatización de marketing y operaciones digitales.</p>
@@ -1013,6 +1153,9 @@
                 <div class="timeline-year">2023 – 2024</div>
                 <h3 data-i18n="exp_3_title">Freelance AI Ops (Madrid & Valencia)</h3>
                 <p data-i18n="exp_3_desc">Colaboración telemática con agencias de alcance nacional. Integraciones con Make, APIs de CRMs y operativa digital.</p>
+                <div class="experience-box" style="margin-top: 15px; border: 1px solid var(--accent-color); padding: 12px; border-radius: 8px; background: rgba(41, 151, 255, 0.05);">
+                    <p style="margin: 0; color: var(--text-main); font-weight: 500;" data-i18n="exp_total">Con 10 meses de experiencia real en proyectos colaborando con agencias de Madrid, Valencia y Granada.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1055,7 +1198,7 @@
                 <div class="info-list">
                     <div class="info-list-item">
                         <div class="dot"></div>
-                        <p><strong data-i18n="lang_en">Inglés:</strong> <span data-i18n="lang_en_desc">TOEFL 5.5/6 (C1 alto / C2 functional level).</span></p>
+                        <p><strong data-i18n="lang_en">Inglés:</strong> <span data-i18n="lang_en_desc">C2.</span></p>
                     </div>
                     <div class="info-list-item">
                         <div class="dot"></div>
@@ -1109,30 +1252,6 @@
         </div>
     </section>
 
-    <!-- Ecosystem & Achievements -->
-    <section id="events" class="container">
-        <div class="section-header">
-            <h2 class="section-title" data-i18n="events_title">Logros & Ecosistema</h2>
-        </div>
-        
-        <div class="events-list">
-            <div class="systems-grid" style="width: 100%;">
-                <div class="system-card">
-                    <h3 data-i18n="h_fundacion">Fundación IA Granada</h3>
-                    <p data-i18n="h_fundacion_desc">AI Business Lab, Coloquia.lab y III Congreso IA Andalucía.</p>
-                </div>
-                <div class="system-card">
-                    <h3 data-i18n="h_sm">Social Media Impact</h3>
-                    <p data-i18n="h_sm_desc">Base de seguidores con más de >60k likes acumulados en plataformas de redes sociales.</p>
-                </div>
-                <div class="system-card">
-                    <h3 data-i18n="h_events">Ecosistema UGR</h3>
-                    <p data-i18n="h_events_desc">Fomento del emprendimiento en ETSIIT y Facultad de Ciencias Empresariales.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- CTA -->
     <section id="contact" class="container">
         <div class="cta-section">
@@ -1174,20 +1293,22 @@
 
             about_title: "Sobre mí / Perfil",
             about_p1: "Estudiante de Ingeniería Informática + ADE en la Universidad de Granada, builder enfocado en IA aplicada, automatización y marketing tech.",
-            about_p2: "Sólida capacidad para construir infraestructuras de IA escalables, habiendo superado las 100k operaciones automatizadas entre 2025 y 2026. Con 10 meses de experiencia real en proyectos colaborando con agencias de Madrid, Valencia y Granada.",
+            about_p2: "Sólida capacidad para construir infraestructuras de IA escalables, habiendo superado las 100k operaciones automatizadas entre 2025 y 2026.",
 
             projects_title: "Proyectos destacados",
             projects_subtitle: "Enfoque absoluto en la ejecución y la creación de sistemas que generan valor real.",
             proj_1_title: "Andaluz.ia (GranadaTur 2035)",
-            proj_1_desc: "Partner técnico co-fundador enfocado en infraestructura de IA. Automatización con Antigravity, Python y librerías escalables. Presentado a incubadora El Carmen, Breaker Impulsa, Concurso Universitario 2026 (€26k), Ruta Investigadora y Santander X Explorer.",
+            proj_1_desc: "Partner técnico co-fundador enfocado en infraestructura de IA. Automatización con Antigravity, Python y librerías escalables. Presentado a incubadora El Carmen, Breaker Impulsa, XIII Concurso Universitario de Emprendimiento 2026 (€26k) y Santander X Explorer.",
+            proj_oposline_title: "Predictivo de datos para trends (Market Insights)",
+            proj_oposline_desc: "Desarrollo de modelo predictivo con NumPy y Pandas. Fruto de detectar un hueco en el mercado, desarrollado para intentar venderlo como freelance para análisis de tendencias.",
             proj_2_title: "ViviAI (Hackathon 72h)",
             proj_2_desc: "Solución IA inmobiliaria desarrollada en Ideas Factory UGR. 72 horas de alta exigencia (8:00 a 21:00 presencial obligatoria). Yo personalmente conseguí 5 cartas de intención con reuniones cerradas de agencias reales de Granada interesadas.",
-            proj_bip_title: "BIP Portugal: Transforming Ideas into Businesses",
+            proj_bip_title: "BIP Portugal: Scaling Ideas",
             proj_bip_desc: "Líder de proyecto becado en Portugal. Foco en emprendimiento internacional y escalabilidad de negocio para Andaluz.ia. Desarrollo de modelos estratégicos y networking global.",
             proj_canal_title: "Sistemas de Automatización (Canal Online SL)",
             proj_canal_desc: "Desarrollo de un ecosistema de posteo automático multicanal (LinkedIn, Twitter, Web). La pieza clave fue un algoritmo evolutivo de selección natural programado en Make.com que optimiza la generación de contenido.",
-            proj_arqus_title: "Arqus International Thinkaton",
-            proj_arqus_desc: "Seleccionado por excelencia entre perfiles emprendedores para ideación de alto rendimiento en Berlin y Leipzig. Reto: Europe as a Global Actor.",
+            proj_arqus_title: "Arqus International Thinkaton (Berlin/Leipzig)",
+            proj_arqus_desc: "Seleccionado por excelencia de emprendimiento y logros para ideación de alto rendimiento en Berlin y Leipzig. Becado por la red Arqus. Reto: Europe as a Global Actor.",
             proj_recapacicla_title: "Ideatón Recapacicla (3er Premio)",
             proj_recapacicla_desc: "Desarrollo del proyecto RECUP TO GO premiado en la fase de universidades de Andalucía Oriental.",
             proj_talento_title: "Talento Emprendedor UGR (150h)",
@@ -1195,14 +1316,16 @@
             proj_3_title: "Proyecto SEO / Web Impresoras",
             proj_3_desc: "Web optimizada que alcanzó ~8.700 visitas mensuales de tráfico orgánico. Experiencia práctica en posicionamiento y conversión real.",
             proj_4_title: "Alhambra Insight IA",
-            proj_4_desc: "Proyecto de IA por visión y software especializado bajo mentoría académica. Potenciando la eficiencia mediante análisis visual avanzado.",
+            proj_4_desc: "Participación en el IX concurso de ideas. Solución de IA por visión y software especializado bajo mentoría académica. Potenciando la eficiencia mediante análisis visual avanzado.",
             proj_6_title: "Dynamic Portfolio & Auto CV",
             proj_6_desc: "Sincronización automatizada del portfolio web y CV descargable mediante scripts en Python y Git/GitHub.",
 
             exp_title: "Trayectoria Profesional",
-            exp_total: "Trayectoria: 10 meses de experiencia real Junior con proyectos de automatización e IA.",
+            exp_total: "Con 10 meses de experiencia real en proyectos colaborando con agencias de Madrid, Valencia y Granada.",
             exp_1_title: "BIP Portugal: Scaling Businesses",
             exp_1_desc: "Líder de proyecto becado en Portugal. Foco en escalabilidad aplicada.",
+            exp_seo_title: "Estrategia SEO & Marketing (2023-2024)",
+            exp_seo_desc: "Posicionamiento orgánico y marketing para productos de ticket medio (100€-300€).",
             exp_2_title: "CanalOnline SL - Emprendedor / Junior",
             exp_2_desc: "Automatización de marketing y operaciones digitales.",
             exp_3_title: "Freelance AI Ops (Madrid & Valencia)",
@@ -1215,13 +1338,13 @@
             btn_invite: "Invitación",
 
             proj_power_title: "Record Nacional Powerlifting (WRPF)",
-            proj_power_desc: "Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación aplicadas al alto rendimiento físico y mental.",
+            proj_power_desc: "Record de Bench Press en categoría Teenagers (117,5 kg). Disciplina, constancia y superación enfocada al alto rendimiento.",
             proj_google_title: "IA en la Empresa (Google Gemini)",
-            proj_google_desc: "Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo y operativa eficiente.",
-            proj_ia_congreso_title: "III Congreso IA de Andalucía",
-            proj_ia_congreso_desc: "Participación activa en el congreso de referencia en el sur de España. Networking con líderes del sector y análisis de tendencias.",
-            proj_talentland_title: "Talent Land España 2025",
-            proj_talentland_desc: "Becado para el mayor encuentro de talento y tecnología del mundo. Participación en retos de innovación y workshops avanzados.",
+            proj_google_desc: "Certificación oficial emitida por 'The Power' en colaboración con Google Campus Madrid. IA aplicada al entorno de trabajo.",
+            proj_ia_congreso_title: "IA Granada Foundation",
+            proj_ia_congreso_desc: "Participación activa en AI Business Lab, Coloquia.lab y el III Congreso IA de Andalucía.",
+            proj_talentland_title: "Talent Land (2024-2026)",
+            proj_talentland_desc: "Asistente 2024, becado 2025. En conversaciones para participación activa en 2026.",
             proj_sm_title: "Social Media Impact (>60k likes)",
             proj_sm_desc: "Marca personal y comunidad digital. Dominio de algoritmos de distribución y creación de contenido viral de alto impacto.",
             proj_fundacion_title: "IA Granada Foundation",
@@ -1246,7 +1369,7 @@
 
             lang_title: "Idiomas & Estancias",
             lang_en: "Inglés:",
-            lang_en_desc: "TOEFL iBT Score: 110/120 (C1 avanzado).",
+            lang_en_desc: "TOEFL iBT Score: 110/120 (C2).",
             lang_fr: "Francés:",
             lang_fr_desc: "Básico. Seleccionado para intercambio en París (2022) con escuela de prestigio.",
             lang_arqus: "Arqus Ambassador:",
@@ -1277,35 +1400,50 @@
 
             about_title: "About Me / Profile",
             about_p1: "Computer Science + Business Administration student at UGR, builder focused on Applied AI, automation and marketing tech.",
-            about_p2: "Strong ability to build scalable AI infrastructure (+100k ops). Path: 10 months of real Junior experience collaborating with agencies in Madrid, Valencia, and Granada.",
+            about_p2: "Strong ability to build scalable AI infrastructure, exceeding 100k automated operations between 2025 and 2026.",
 
             projects_title: "Featured Projects",
             projects_subtitle: "Absolute focus on execution and building systems that generate real value.",
-            proj_1_title: "Andaluz.ia (GranadaTur 2035)",
-            proj_1_desc: "Co-founding technical partner focused on AI infrastructure. Automation with Antigravity, Python, and scalable libraries. Presented to El Carmen incubator, Breaker Impulsa, €26k University Contest 2026, and Santander X Explorer.",
-            proj_2_title: "ViviAI (72h Hackathon)",
-            proj_2_desc: "Real Estate AI solution developed at Ideas Factory UGR. 72 high-demand hours (mandatory 8:00 to 21:00 on-site). I personally secured 5 Letters of Intent with closed meetings from real Granada agencies.",
-            proj_bip_title: "BIP Portugal: Transforming Ideas into Businesses",
-            proj_bip_desc: "Scholarship project leader in Portugal. Focused on international entrepreneurship and business scalability for Andaluz.ia. Global strategic networking.",
-            proj_canal_title: "Automation Systems (Canal Online SL)",
-            proj_canal_desc: "Development of a multi-channel automatic posting ecosystem. Key piece: an evolutionary natural selection algorithm programmed in Make.com that optimizes content generation.",
-            proj_arqus_title: "Arqus International Thinkaton",
-            proj_arqus_desc: "Selected for excellence among entrepreneurial profiles for high-performance ideation in Berlin and Leipzig. Challenge: Europe as a Global Actor.",
+            proj_sm_title: "Social Media Impact (>60k likes)",
+            proj_sm_desc: "Personal brand building and digital community growth. Mastery of distribution algorithms and viral content creation.",
+            proj_nestle_title: "Nestlé International Skillathon 2025",
+            proj_nestle_desc: "Collaboration with international teams to solve business challenges. Focus on innovation and high-pressure work.",
             proj_recapacicla_title: "Ideaton Recapacicla (3rd Prize)",
-            proj_recapacicla_desc: "Development of the RECUP TO GO project awarded in the Eastern Andalusia university phase.",
+            proj_recapacicla_desc: "Awarded project RECUP TO GO in the university phase of Eastern Andalusia.",
             proj_talento_title: "UGR Entrepreneurial Talent (150h)",
-            proj_talento_desc: "Intensive 150h program recognized with 6 ECTS credits. Business idea validation and Lean Startup methodologies.",
+            proj_talento_desc: "Intensive training recognized with 6 ECTS credits. Business validation and Lean Startup.",
+            proj_1_title: "Andaluz.ia (GranadaTur 2035)",
+            proj_1_desc: "Co-founding technical partner focused on AI infrastructure. Automation with Antigravity, Python and XIII University Entrepreneurship Contest 2026 (€26k).",
+            proj_oposline_title: "Predictive Data for Trends (Market Insights)",
+            proj_oposline_desc: "Development of a predictive model using NumPy and Pandas. Created to fill a market gap and marketed as a freelance trend analysis tool.",
+            proj_2_title: "ViviAI (72h Hackathon)",
+            proj_2_desc: "Real Estate AI solution developed at Ideas Factory UGR. 72 high-demand hours (mandatory 8:00 to 21:00). Secured 5 Letters of Intent.",
+            proj_bip_title: "BIP Portugal: Scaling Ideas",
+            proj_bip_desc: "Scholarship project leader in Portugal. Focused on international entrepreneurship and business scalability for Andaluz.ia.",
+            proj_canal_title: "Automation Systems (Canal Online SL)",
+            proj_canal_desc: "Development of a multi-channel automatic posting ecosystem. Key piece: evolutionary natural selection algorithm with Make.com.",
+            proj_arqus_title: "Arqus International Thinkaton (Berlin/Leipzig)",
+            proj_arqus_desc: "Selected for excellence in entrepreneurship and achievements for high-performance ideation in Berlin and Leipzig. Arqus Network scholarship.",
+            proj_google_title: "AI in Business (Google Gemini)",
+            proj_google_desc: "Official certification issued by 'The Power' with Google Campus Madrid. AI applied to the workplace.",
+            proj_ia_congreso_title: "IA Granada Foundation",
+            proj_ia_congreso_desc: "Active participation in AI Business Lab, Coloquia.lab, and III Andalusia AI Congress.",
+            proj_talentland_title: "Talent Land (2024-2026)",
+            proj_talentland_desc: "Attended 2024, Scholarship 2025. In talks for active participation in 2026.",
+
             proj_3_title: "SEO Project / Printers Web",
             proj_3_desc: "Optimized website reaching ~8,700 monthly organic visits. Practical experience in SEO and real traffic conversion.",
             proj_4_title: "Alhambra Insight AI",
-            proj_4_desc: "Vision AI and software project under academic mentorship. Enhancing efficiency through advanced visual analysis.",
+            proj_4_desc: "Participation in the IX ideas contest. Vision AI and software project under academic mentorship. Enhancing efficiency through visual analysis.",
             proj_6_title: "Dynamic Portfolio & Auto CV",
             proj_6_desc: "Automated syncing of the portfolio web and downloadable CV via Python and Git/GitHub scripts.",
 
             exp_title: "Professional Path",
-            exp_total: "Timeline: 10 months of real Junior experience with automation and AI projects.",
+            exp_total: "With 10 months of real experience in projects collaborating with agencies in Madrid, Valencia, and Granada.",
             exp_1_title: "BIP Portugal: Scaling Businesses",
             exp_1_desc: "Scholarship project leader in Portugal. Focused on scalability.",
+            exp_seo_title: "SEO & Marketing Strategy (2023-2024)",
+            exp_seo_desc: "Organic positioning and marketing for mid-ticket products (€100-€300).",
             exp_2_title: "CanalOnline SL - Entrepreneur / Junior",
             exp_2_desc: "Technical execution in marketing automation.",
             exp_3_title: "Freelance AI Ops (Madrid & Valencia)",
@@ -1349,7 +1487,7 @@
 
             lang_title: "Languages & Stays",
             lang_en: "English:",
-            lang_en_desc: "TOEFL iBT Score: 110/120 (Advanced C1).",
+            lang_en_desc: "TOEFL iBT Score: 110/120 (C2).",
             lang_fr: "French:",
             lang_fr_desc: "Basic. Selected for prestigious school exchange in Paris (2022).",
             lang_arqus: "Arqus Ambassador:",
